@@ -19,15 +19,22 @@ function handler () {
     message: textArea.value
 }
 localStorage.setItem('feedback-form-state', JSON.stringify(clientData));
-button.addEventListener('click', refresher);
+
 }
 
+
+
+button.addEventListener('click', refresher);
 
 // Функція-оновлювач при натисканні на кнопку і сабміті. 
 function refresher (event) {
     event.preventDefault();
 
     if (event) {
+        if (input.value.trim() === "" || textArea.value.trim() === "") {
+            alert("Будь ласка, заповніть всі поля!")
+        } else { 
+
 const currentValue = {
     Email: input.value,
     Message: textArea.value
@@ -37,7 +44,7 @@ console.log(currentValue);
 localStorage.removeItem('feedback-form-state');
 input.value = "";
 textArea.value = "";
-    }
+    }}
 }
 
 

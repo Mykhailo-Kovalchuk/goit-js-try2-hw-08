@@ -8,16 +8,44 @@ const player = new Player(iframe);
 
 console.log("qwerty");
 
-// player.on('play', function() {
-//     console.log('played the video!');
-// });
+
+const savedTimeData = localStorage.getItem("videoplayer-current-time");
+const parsedTimeData = savedTimeData ? JSON.parse(savedTimeData) : null;    
 
 
-player.on('timeupdate', (data) => {
+player.on('play', () => {
+    console.log('Played the video!');
+
+    
+    if (parsedTimeData !== null) {
+    
+        player.setCurrentTime(parsedTimeData).then(() => {
+            console.log("Continue playing")
+        });
+}
+
+
+
+    player.on('timeupdate', throttle((data) => {
     const currentTime = data.seconds;
-
-    console.log('Поточний час відтворення: ' + currentTime);
+    
+     localStorage.setItem("videoplayer-current-time", JSON.stringify(currentTime));
+    }, 1000));
 });
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
 
 // player.getVideoTitle().then(function(title) {
 //     console.log('title:', title);
